@@ -79,8 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                Coming soon..<br>
-                    Truehotelvideos
+                <h1>Coming soon.</h1>
                 </div>
 
 
