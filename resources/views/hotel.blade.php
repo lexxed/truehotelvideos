@@ -21,10 +21,12 @@
 					<a href="{{ url('/video-add/' . $hotel->slug) }}">Submit a video</a>          
 		          </p>
 
-				@foreach ($videos as $video)
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $video->tag }}" frameborder="0" allowfullscreen></iframe>    
-					<br>
-				@endforeach		          
+		        <div class="video-responsive">  
+					@foreach ($videos as $video)
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $video->tag }}" frameborder="0" allowfullscreen></iframe>
+						<br>
+					@endforeach		          
+				</div>
 
 	        </div>  
         </div>      
