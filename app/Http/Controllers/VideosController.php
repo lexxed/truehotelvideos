@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use App\Video;
 Use App\Hotel;
+Use App\Cities;
 Use App\Agodahotel;
 
 
@@ -20,7 +21,7 @@ class VideosController extends Controller
         $hotel = Hotel::where('slug', $slug)->firstOrFail();
         $agodahotel = Agodahotel::where('tel_id', $hotel->agodaid)->firstOrFail();
 
-        return view('video-add')->with(['hotel' => $hotel, 'agodahotel' => $agodahotel]);
+        return view('video-add')->with(['hotel' => $hotel, 'agodahotel' => $agodahotel, 'city' => '']);
 
     }  
 
@@ -68,7 +69,12 @@ class VideosController extends Controller
         //$hotel->addVideo($video);   
         $video->save();    
 
-        return redirect('/'.$hotel->slug);
+        # increment hotels table video count by 1
+        \DB::Table('hotels')->whereid($hotel->id)->Increment('vidcount');
+
+        $city = Cities::where('city', $hotel->city)->first();
+
+        return redirect('/'. $city->slug . '/' . $hotel->slug);
     }   
 
   

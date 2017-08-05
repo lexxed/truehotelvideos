@@ -1,333 +1,215 @@
 @extends('master')
 
+@if (strlen($hotel->hotelname) < 25)
+  @section('title', 'Real videos of '. $hotel->hotelname . " - " . config('constants.brandDomain'))
+@else
+  @section('title', $hotel->hotelname . " - " . config('constants.brandDomain'))
+@endif  
 
+@section('description', 'See real people\'s Videos of ' . $hotel->hotelname . '. True hotel videos by real people.')
 
 @section('content')
 
-  <div class="spacer"></div>
+  <div class="breadcrumb-header">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <a href="{{ url('/') }}">Home</a> > 
+          <a href="{{ url('/hotels/thailand') }}">Thailand</a> >
+          <a href="{{ url('/hotels/thailand/' . $cityslug) }}">{{ ucfirst($city) }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <div class="columns">
       <div class="column is-8">
 
         <div class="box">
-	        <div class="content">
-		          <h1>{{ $agodahotel->hotel_name }}</h1>
-		          <p>
-					{{ $agodahotel->addressline1 }}<br>
-					{{ $agodahotel->overview }}<br>
-					<br>
-					<a href="https://www.agoda.com{{ $agodahotel->url }}">View rates</a><br>
-					<br>
-					<a href="{{ url('/video-add/' . $hotel->slug) }}">Submit a video</a>          
-		          </p>
+          <div class="content">    
 
-		        <div class="video-responsive">  
-					@foreach ($videos as $video)
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $video->tag }}" frameborder="0" allowfullscreen></iframe>
-						<br>
-					@endforeach		          
-				</div>
+            <div class="columns">
+              <div class="column is-three-quarters">
+                
+                <h1>{{ $agodahotel->hotel_name }}</h1>
+                <span class="stars stars-details">
+                  @for ($i = 1; $i <= $agodahotel->star_rating; $i++)
+                    <i class="fa fa-star"></i>
+                  @endfor
+
+                  <?php
+                  $starsLeft = 5 - $agodahotel->star_rating;
+
+                  if (is_float($starsLeft)) {
+                    echo '<i class="fa fa-star-half-o"></i>
+                    '; // new line else will bunch together
+                  }
+
+                  if ($starsLeft > 0) {
+                      for ($i = 1; $i <= $starsLeft; $i++) {  // go through each remaining star
+                          echo '<i class="fa fa-star-o"></i>
+                          ';     
+                      }
+                  }            
+                  ?>
+                </span>  
+                <p>
+                  {{ $agodahotel->addressline1 }}, {{ $agodahotel->city }}, {{ $agodahotel->country }}
+                </p>     
+
+              </div>
+              <div class="column has-text-centered is-hidden-mobile">
+
+                Per night 
+                <b>
+                  @if ($agodahotel->rates_from==0)
+                    $42
+                  @else
+                    ${{ $agodahotel->rates_from }}
+                  @endif  
+                </b>
+                <a class="button is-danger" href="{{ url('/ag/' . $hotel->slug) }}" target="_blank" rel="nofollow">View deal</a>                    
+                <br>
+                <div class="is-small">agoda.com</div>
+                
+
+              </div>
+            </div>
+
+    				@foreach ($videos as $video)
+    					<div class="video-responsive">  
+    						<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $video->tag }}" frameborder="0" allowfullscreen></iframe>
+    					</div>
+    				@endforeach	
+
+            <div class="is-pulled-right is-hidden-mobile">
+              <a href="{{ url('/video-add/' . $hotel->slug) }}">Submit video</a>
+            </div>
+
+            <div class="columns is-gapless is-hidden-mobile">
+              <div class="column is-narrow" style="width: 101px;">
+                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo1 }}">
+              </div>
+              <div class="column is-narrow" style="width: 101px;">  
+                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo2 }}">
+              </div>
+              <div class="column is-narrow" style="width: 101px;">
+                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo3 }}">
+              </div>
+              @if ($agodahotel->photo4)
+              <div class="column is-narrow" style="width: 101px;">
+                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo4 }}">
+              </div>
+              @endif
+              @if ($agodahotel->photo4)
+              <div class="column is-narrow" style="width: 101px;">
+                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo5 }}">
+              </div>              
+              @endif
+            </div>  
+
+            <a rel="nofollow" target="_blank" class="button is-light" href="{{ url('/ag/' . $hotel->slug) }}">
+              Agoda.com &nbsp;&nbsp;&nbsp;&nbsp;
+                <b>
+                  @if ($agodahotel->rates_from==0)
+                    $42
+                  @else
+                    ${{ $agodahotel->rates_from }}
+                  @endif  
+                </b>              
+            </a>
+            <a rel="nofollow" target="_blank" class="button is-danger" href="{{ url('/ag/' . $hotel->slug) }}">View deal</a>        
+            
+            @if (!empty($bookinghotel->minrate))
+              <br><br>
+              <a rel="nofollow" target="_blank" class="button is-light" href="{{ url('/bk/' . $hotel->slug) }}">
+                Booking.com &nbsp;&nbsp;<b>${!! number_format($bookinghotel->minrate/34,0) !!}</b>
+              </a>
+              <a rel="nofollow" target="_blank" class="button is-danger" href="{{ url('/bk/' . $hotel->slug) }}">View deal</a>        
+            @endif
 
 	        </div>  
         </div>      
 
-
-          
-
-
-
-
-        <div class="box video-meta">        
-          <div class="video-title">{{ $hotel->hotelname }}</div>
-          <br>
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <img src="http://placehold.it/128x128" alt="Image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <div class="columns">
-                  <div class="column is-6">
-                    <p>
-                      <strong>jsmith</strong>
-                      <br>
-                      <a href="#" class="button is-danger">Subscribe</a>
-                    </p>
-                  </div>
-                  <div class="column is-6">
-                    <nav class="nav">
-                      <div class="container">
-                        <div class="nav-right">
-                          <a class="nav-item is-tab is-active">
-                            <span class="title is-4">124 304 views</span>
-                          </a>
-                        </div>
-                      </div>
-                    </nav>
-                  </div>
-
-                </div>
-                <nav class="level">
-                  <p class="level-item has-text-left">
-                    <a class="button is-default">
-                      <span class="icon"><i class="fa fa-plus"></i></span> <span>Add to</span>
-                    </a>
-                    <a class="button is-default">
-                      <span class="icon"><i class="fa fa-share"></i></span> <span>Share</span>
-                    </a>
-                    <a class="button is-default">
-                      <span class="icon"><i class="fa fa-ellipsis-h"></i></span> <span>More</span>
-                    </a>
-                  </p>
-                  <p class="level-item has-text-right">
-                    <a class="button is-default"><i class="fa fa-thumbs-up"></i> 5254</a>
-                    <a class="button is-default"><i class="fa fa-thumbs-down"></i> 1</a>
-                  </p>
-                </nav>
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="box video-description">
-          <p><strong>Uploaded on August 1, 2016</strong></p>
-          <p>Lorum ipsum and friends at MTV unplugged playing Long May You Run.</p>
-          <hr>
-          <p class="has-text-centered has-text-muted video-description-more">Show More</p>
-        </div>
         <div class="box">
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="http://placehold.it/128x128">
-              </p>
-            </figure>
-            <div class="media-content">
-              <p class="control">
-                <textarea class="textarea" placeholder="Add a comment..."></textarea>
-              </p>
-              <nav class="level">
-                <div class="level-left">
-                  <div class="level-item">
-                    <a class="button is-info">Post comment</a>
-                  </div>
-                </div>
-                <div class="level-right">
-                  <div class="level-item">
-                    <label class="checkbox">
-                      <input type="checkbox"> Press enter to submit
-                    </label>
-                  </div>
-                </div>
-              </nav>
-            </div>
-          </article>
-          <hr>
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="http://placehold.it/128x128">
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                  <br>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                  <br>
-                  <small><a>Like</a> · <a>Reply</a></small>
-                </p>
-              </div>
-            </div>
-          </article>
-          <div class="spacer"></div>
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="http://placehold.it/128x128">
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                  <br>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                  <br>
-                  <small><a>Like</a> · <a>Reply</a></small>
-                </p>
-              </div>
-            </div>
-          </article>
-          <div class="spacer"></div>
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="http://placehold.it/128x128">
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                  <br>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                  <br>
-                  <small><a>Like</a> · <a>Reply</a></small>
-                </p>
-              </div>
-            </div>
-          </article>
-          <div class="spacer"></div>
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="http://placehold.it/128x128">
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                  <br>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                  <br>
-                  <small><a>Like</a> · <a>Reply</a></small>
-                </p>
-              </div>
-            </div>
-          </article>
-          <div class="spacer"></div>
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="http://placehold.it/128x128">
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                  <br>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                  <br>
-                  <small><a>Like</a> · <a>Reply</a></small>
-                </p>
-              </div>
-            </div>
-          </article>
-        </div>
+          <div class="video-responsive">  
+            <iframe
+              width="600"
+              height="450"
+              frameborder="0" style="border:0"
+              src="https://www.google.com/maps/embed/v1/place?key={{ config('constants.googlemapkey') }}
+                &q={{ urlencode($hotel->hotelname) }}
+                &center={{ $agodahotel->latitude }}, {{ $agodahotel->longitude }}
+                " allowfullscreen>
+            </iframe>
+          </div>
+        </div>    
+
+        <div class="box">
+          <p><strong>{{ $hotel->hotelname }}</strong></p>
+          <p>{!! str_replace('â€“', ' ', $agodahotel->overview) !!}</p>
+          @if($agodahotel->checkin) <p><b>Check-in :</b> {{ $agodahotel->checkin }}</p> @endif
+          @if($agodahotel->checkout) <p><b>Check-out :</b> {{ $agodahotel->checkout }}</p> @endif
+        </div>            
       </div>
+
       <div class="column is-4">
         <div class="box related-list">
           <p class="autoplay">
-            <span class="autoplay-title">Up next</span>
-            <span class="autoplay-toggle">
-              Autoplay
-              <i class="fa fa-info-circle"></i>
-            </span>
+            <span class="autoplay-title">Similar Hotels</span>
           </p>
-          <article class="media related-card">
-            <div class="media-left">
-              <figure class="image">
-                <img src="http://placehold.it/120x90" alt="Image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <span class="video-title">A video title</span>
-                  <span class="video-account">asasdas</span>
-                  <span class="video-views">239 views</span>
-                </p>
+
+          @foreach ($similar as $similarhotel)
+
+            @php
+                //$shotel = App\Hotel::where('agodaid', $similarhotel->tel_id)->firstOrFail();
+            @endphp            
+            <article class="media related-card">
+              <div class="media-left">
+                  <a href="{{ url('/' . $similarhotel->slug) }}">
+                    <img class="image is-90x90" width="90" src="{{ $similarhotel->photo1 }}">
+                  </a>  
               </div>
-            </div>
-          </article>
-          <hr>
-          <article class="media related-card">
-            <div class="media-left">
-              <figure class="image">
-                <img src="http://placehold.it/120x90" alt="Image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <span class="video-title">A video title</span>
-                  <span class="video-account">asasdas</span>
-                  <span class="video-views">239 views</span>
-                </p>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <span class="video-title">
+                      <a href="{{ url('/' . $cityslug . '/' . $similarhotel->slug) }}">
+                        <b>{{ $similarhotel->hotelname }}</b>
+                      </a>
+                    </span>                    
+                    <span class="stars stars-details">
+                      @for ($i = 1; $i <= $similarhotel->star_rating; $i++)
+                        <i class="fa fa-star"></i>
+                      @endfor
+
+                      <?php
+                      $starsLeft = 5 - $similarhotel->star_rating;
+
+                      if (is_float($starsLeft)) {
+                        echo '<i class="fa fa-star-half-o"></i>
+                        ';
+                      }
+
+                      if ($starsLeft > 0) {                       // if there are any more stars left
+                          for ($i = 1; $i <= $starsLeft; $i++) {  // go through each remaining star
+                              echo '<i class="fa fa-star-o"></i>
+                              ';     // show it empty
+                          }
+                      }            
+                      ?>
+                    </span>
+                    <span class="video-title">Rates from ${{ $similarhotel->agoda_rate }}</span>                    
+                  </p>
+                </div>
               </div>
-            </div>
-          </article>
-          <article class="media related-card">
-            <div class="media-left">
-              <figure class="image">
-                <img src="http://placehold.it/120x90" alt="Image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <span class="video-title">A video title</span>
-                  <span class="video-account">asasdas</span>
-                  <span class="video-views">239 views</span>
-                </p>
-              </div>
-            </div>
-          </article>
-          <article class="media related-card">
-            <div class="media-left">
-              <figure class="image">
-                <img src="http://placehold.it/120x90" alt="Image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <span class="video-title">A video title</span>
-                  <span class="video-account">asasdas</span>
-                  <span class="video-views">239 views</span>
-                </p>
-              </div>
-            </div>
-          </article>
-          <article class="media related-card">
-            <div class="media-left">
-              <figure class="image">
-                <img src="http://placehold.it/120x90" alt="Image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <span class="video-title">A video title</span>
-                  <span class="video-account">asasdas</span>
-                  <span class="video-views">239 views</span>
-                </p>
-              </div>
-            </div>
-          </article>
-          <article class="media related-card">
-            <div class="media-left">
-              <figure class="image">
-                <img src="http://placehold.it/120x90" alt="Image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <span class="video-title">A video title</span>
-                  <span class="video-account">asasdas</span>
-                  <span class="video-views">239 views</span>
-                </p>
-              </div>
-            </div>
-          </article>
+            </article>
+          @endforeach    
+
         </div>
       </div>
+
     </div>
   </div>	
 

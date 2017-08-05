@@ -11,6 +11,9 @@ class Hotel extends Model
 
 	// each hotel HAS one agodahotel
 	public function agodahotel() {
+
+		//$primaryKey = 'tel_id';
+
 		return $this->hasOne('App\Agodahotel'); // this matches the Eloquent model
 	}    
 

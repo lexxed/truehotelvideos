@@ -11,6 +11,7 @@ class Agodahotel extends Model
 	//protected $table = 'fish';
 
 	//protected $primaryKey = 'tel_id';
+	//protected $table = 'fish';
 
 	// DEFINE RELATIONSHIPS --------------------------------------------------
 	public function hotel() {

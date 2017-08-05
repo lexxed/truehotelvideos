@@ -1,7 +1,7 @@
 @extends('master')
 
-@section('title', 'True videos of ' . $city . ' Hotels by real people that stayed there.')
-@section('description', 'Compare ' .  $city . ' hotels by True Videos of real people that was there. See what it\'s like to stay there yourself.')
+@section('title', 'Search for ' . $q)
+@section('description', 'Hotels in ')
 
 @section('content')
 
@@ -10,8 +10,7 @@
       <div class="columns">
         <div class="column">
           <a href="{{ url('/') }}">Home</a> > 
-          <a href="{{ url('/hotels/thailand') }}">Thailand</a> >
-          <a href="{{ url('/hotels/thailand/' . $cityslug) }}">{{ ucfirst($city) }}</a>
+          <a href="{{ url('/hotels/thailand') }}">Thailand</a> 
         </div>
       </div>
     </div>
@@ -19,10 +18,17 @@
 
   <div class="container">
     <div class="columns">
-      <div class="column is-8">
+      <div class="column is-12">
 
         <div class="box">
           <div class="content">    
+           
+            @if($message)
+                <h1>{{ $message }} '{{ $q }}'</h1>
+                <p>Here are some recommended hotels.</p>
+            @else
+                <h1>Search results for '{{ $q }}'.</h1>
+            @endif
 
             @foreach($hotels as $hotel)
               <div class="columns  is-mobile">
@@ -30,6 +36,7 @@
 
                   @php
                       $video = App\Video::where('hotel_id', $hotel->id)->first();
+                      $city = App\Cities::where('city', $hotel->city)->first();
                   @endphp 
 
                   @if (!empty($video->tag))
@@ -37,13 +44,13 @@
                       <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $video->tag }}" frameborder="0" allowfullscreen></iframe>
                     </div>
                   @else                
-                    <a class="block-link" href="{{ url('/' . $cityslug . '/' . $hotel->slug) }}">
+                    <a class="block-link" href="{{ url('/' . $city->slug . '/' . $hotel->slug) }}">
                       <img class="image is-180x180" src="http://res.cloudinary.com/{{ env('CLOUDINARY_CLOUD_NAME') }}/image/fetch/{{ $hotel->photo1 }}">
                     </a>
                   @endif
                 </div>
                 <div class="column block-link">
-                  <a class="block-link" href="{{ url('/' . $cityslug . '/' . $hotel->slug) }}">
+                  <a class="block-link" href="{{ url('/' . $city->slug . '/' . $hotel->slug) }}">
                     {{ $hotel->hotelname }}<br>
 
                     
@@ -71,7 +78,7 @@
                   </a>
 
                   @if ($hotel->vidcount != 0)
-                    <a href="{{ url('/' . $cityslug . '/' . $hotel->slug) }}">
+                    <a href="{{ url('/'  . $city->slug . '/' . $hotel->slug) }}">
                     {{ $hotel->vidcount }} videos by real people
                     </a><br>
                   @endif
@@ -94,87 +101,26 @@
                     </a>
                   @endif
                   
-
                 </div>          
               </div>
-              
             @endforeach
 
-            <br>
-            {{ $hotels->links() }}
-
 	        </div>  
-        </div>      
-  
-        <?php /*
-        <div class="box">
-            ...
-        </div> 
-        */ ?>
-
+        </div>                
       </div>
 
+      <?php
+      /*
       <div class="column is-4">
         <div class="box related-list">
           <p class="autoplay">
-            <span class="autoplay-title">Highly Rated Hotels</span>
+            <span class="autoplay-title">Side bar</span>
           </p>
 
-          @foreach ($similar as $similarhotel)
-
-            @php
-                //$shotel = App\Hotel::where('agodaid', $similarhotel->tel_id)->firstOrFail();
-            @endphp            
-            <article class="media related-card">
-              <div class="media-left">
-                  <a href="{{ url('/' . $cityslug . '/' .  $similarhotel->slug) }}">
-                    <img class="image is-90x90" width="90" src="{{ $similarhotel->photo1 }}">
-                  </a>  
-              </div>
-              <div class="media-content">
-                <div class="content">
-                  <p>
-                    <span class="video-title">
-                      <a href="{{ url('/' . $cityslug . '/' . $similarhotel->slug) }}">
-                        <b>{{ $similarhotel->hotelname }}</b>
-                      </a>
-                    </span>
-                    <span class="video-title">Rates from ${{ $similarhotel->agoda_rate }}</span>
-                    
-                    <span class="stars stars-details">
-                      @for ($i = 1; $i <= $similarhotel->star_rating; $i++)
-                        <i class="fa fa-star"></i>
-                      @endfor
-
-                      <?php
-                      $starsLeft = 5 - $similarhotel->star_rating;
-
-                      if (is_float($starsLeft)) {
-                        echo '<i class="fa fa-star-half-o"></i>
-                        ';
-                      }
-
-                      if ($starsLeft > 0) {                       // if there are any more stars left
-                          for ($i = 1; $i <= $starsLeft; $i++) {  // go through each remaining star
-                              echo '<i class="fa fa-star-o"></i>
-                              ';     // show it empty
-                          }
-                      }            
-                      ?>
-                    </span>
-
-
-                  </p>
-                </div>
-              </div>
-            </article>
-          @endforeach    
-
         </div>
-      </div>      
-
-
-
+      </div>
+      */
+      ?>
     </div>
   </div>	
 

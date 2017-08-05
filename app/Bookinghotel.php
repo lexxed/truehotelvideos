@@ -9,6 +9,7 @@ class Bookinghotel extends Model
 	// LINK THIS MODEL TO OUR DATABASE TABLE ---------------------------------
 	// since the plural of fish isnt what we named our database table we have to define it
 	//protected $table = 'fish';
+	protected $table = 'bookingcomhotels';
 
 	// DEFINE RELATIONSHIPS --------------------------------------------------
 	public function hotel() {
