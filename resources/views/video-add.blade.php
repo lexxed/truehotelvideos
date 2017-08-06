@@ -31,7 +31,7 @@
 			    <div class="form-group">
 			        <label class="label" for="inputError1">Email</label>
 			        <p class="control">
-			        <input name="submitby" size="35" type="submitby" class="form-control" id="inputSubmitby" placeholder="Email" value="mm">
+			        <input name="submitby" size="35" type="submitby" class="form-control" id="inputSubmitby" placeholder="Email" value="">
 			        </p>
 			        <small class="text-danger"></small>
 			    </div>	
