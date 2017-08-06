@@ -77,24 +77,25 @@
                   @endif
                      
                   <div class="is-hidden-mobile">
-                  <a rel="nofollow" target="_blank" class="button is-light" href="{{ url('/ag/' . $hotel->slug) }}">
-                  Agoda.com &nbsp;&nbsp;&nbsp;&nbsp;
-                  <b>
-                    @if ($hotel->agoda_rate==0)
-                      $42
-                    @else
-                      ${{ $hotel->agoda_rate }}
-                    @endif  
-                  </b>
-                  </a>
-                  @if (!empty($hotel->bookingcom_rate))
-                    <br>
-                    <a rel="nofollow" target="_blank" class="button is-light" href="{{ url('/bk/' . $hotel->slug) }}">
-                      Booking.com &nbsp;&nbsp;<b>${!! number_format($hotel->bookingcom_rate/34,0) !!}</b>
-                    </a>
-                  @endif
+                    @if(config('constants.displayAgoda')=="ON")
+                      <a rel="nofollow" target="_blank" class="button is-light" href="{{ url('/ag/' . $hotel->slug) }}">
+                      Agoda.com &nbsp;&nbsp;&nbsp;&nbsp;
+                      <b>
+                        @if ($hotel->agoda_rate==0)
+                          $42
+                        @else
+                          ${{ $hotel->agoda_rate }}
+                        @endif  
+                      </b>
+                      </a>
+                    @endif
+                    @if ((!empty($hotel->bookingcom_rate)) && (config('constants.displayBooking')=="ON"))
+                      <br>
+                      <a rel="nofollow" target="_blank" class="button is-light" href="{{ url('/bk/' . $hotel->slug) }}">
+                        Booking.com &nbsp;&nbsp;<b>${!! number_format($hotel->bookingcom_rate/34,0) !!}</b>
+                      </a>
+                    @endif
                   </div>
-                  
 
                 </div>          
               </div>

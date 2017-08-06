@@ -61,6 +61,7 @@
               </div>
               <div class="column has-text-centered is-hidden-mobile">
 
+                @if(config('constants.displayAgoda')=="ON")
                 Per night 
                 <b>
                   @if ($agodahotel->rates_from==0)
@@ -72,7 +73,7 @@
                 <a class="button is-danger" href="{{ url('/ag/' . $hotel->slug) }}" target="_blank" rel="nofollow">View deal</a>                    
                 <br>
                 <div class="is-small">agoda.com</div>
-                
+                @endif
 
               </div>
             </div>
@@ -109,6 +110,7 @@
               @endif
             </div>  
 
+            @if(config('constants.displayAgoda')=="ON")
             <a rel="nofollow" target="_blank" class="button is-light" href="{{ url('/ag/' . $hotel->slug) }}">
               Agoda.com &nbsp;&nbsp;&nbsp;&nbsp;
                 <b>
@@ -120,8 +122,10 @@
                 </b>              
             </a>
             <a rel="nofollow" target="_blank" class="button is-danger" href="{{ url('/ag/' . $hotel->slug) }}">View deal</a>        
+            @endif
+
             
-            @if (!empty($bookinghotel->minrate))
+            @if ((!empty($bookinghotel->minrate)) && (config('constants.displayBooking')=="ON"))
               <br><br>
               <a rel="nofollow" target="_blank" class="button is-light" href="{{ url('/bk/' . $hotel->slug) }}">
                 Booking.com &nbsp;&nbsp;<b>${!! number_format($bookinghotel->minrate/34,0) !!}</b>
