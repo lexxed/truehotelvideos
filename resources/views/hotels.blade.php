@@ -25,7 +25,7 @@
           <div class="content">    
 
             @foreach($hotels as $hotel)
-              <div class="columns  is-mobile">
+              <div class="columns custom-columns">
                 <div class="column">
 
                   @php
@@ -73,10 +73,10 @@
                   @if ($hotel->vidcount != 0)
                     <a href="{{ url('/' . $cityslug . '/' . $hotel->slug) }}">
                     {{ $hotel->vidcount }} videos by real people
-                    </a><br>
+                    </a>
                   @endif
                      
-                  
+                  <div class="is-hidden-mobile">
                   <a rel="nofollow" target="_blank" class="button is-light" href="{{ url('/ag/' . $hotel->slug) }}">
                   Agoda.com &nbsp;&nbsp;&nbsp;&nbsp;
                   <b>
@@ -93,6 +93,7 @@
                       Booking.com &nbsp;&nbsp;<b>${!! number_format($hotel->bookingcom_rate/34,0) !!}</b>
                     </a>
                   @endif
+                  </div>
                   
 
                 </div>          

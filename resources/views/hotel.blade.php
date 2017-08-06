@@ -102,7 +102,7 @@
                 <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo4 }}">
               </div>
               @endif
-              @if ($agodahotel->photo4)
+              @if ($agodahotel->photo5)
               <div class="column is-narrow" style="width: 101px;">
                 <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo5 }}">
               </div>              
