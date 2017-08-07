@@ -96,22 +96,22 @@
 
             <div class="columns is-gapless is-hidden-mobile">
               <div class="column is-narrow" style="width: 101px;">
-                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo1 }}">
+                <img class="image is-96x96 popover" src="https://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo1 }}">
               </div>
               <div class="column is-narrow" style="width: 101px;">  
-                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo2 }}">
+                <img class="image is-96x96 popover" src="https://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo2 }}">
               </div>
               <div class="column is-narrow" style="width: 101px;">
-                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo3 }}">
+                <img class="image is-96x96 popover" src="https://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo3 }}">
               </div>
               @if ($agodahotel->photo4)
               <div class="column is-narrow" style="width: 101px;">
-                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo4 }}">
+                <img class="image is-96x96 popover" src="https://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo4 }}">
               </div>
               @endif
               @if ($agodahotel->photo5)
               <div class="column is-narrow" style="width: 101px;">
-                <img class="image is-96x96 popover" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo5 }}">
+                <img class="image is-96x96 popover" src="https://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo5 }}">
               </div>              
               @endif
             </div>  
