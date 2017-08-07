@@ -86,7 +86,7 @@
 
             @if($videos->isEmpty())
               <div class="is-hidden-desktop-only">
-                  <img class="is-hidden-desktop-only" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo1 }}">
+                  <img class="is-hidden-desktop-only" src="https://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo1 }}">
               </div>
             @endif
 
