@@ -85,9 +85,9 @@
     				@endforeach	
 
             @if($videos->isEmpty())
-            <div class="is-hidden-desktop-only">
-                <img class="is-hidden-desktop-only" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo1 }}">
-            </div>
+              <div class="is-hidden-desktop-only">
+                  <img class="is-hidden-desktop-only" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo1 }}">
+              </div>
             @endif
 
             <div class="is-pulled-right is-hidden-mobile">
@@ -175,7 +175,7 @@
             <article class="media related-card">
               <div class="media-left">
                   <a href="{{ url('/' . $similarhotel->slug) }}">
-                    <img class="image is-90x90" width="90" src="{{ $similarhotel->photo1 }}">
+                    <img class="image is-90x90" width="90" src="https://res.cloudinary.com/{{ env('CLOUDINARY_CLOUD_NAME') }}/image/fetch/{{ $similarhotel->photo1 }}">                    
                   </a>  
               </div>
               <div class="media-content">

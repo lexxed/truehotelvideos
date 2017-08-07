@@ -47,7 +47,7 @@
                     </div>
                   @else                
                     <a class="block-link" href="{{ url('/' . $city->slug . '/' . $hotel->slug) }}">
-                      <img class="image is-180x180" src="http://res.cloudinary.com/{{ env('CLOUDINARY_CLOUD_NAME') }}/image/fetch/{{ $hotel->photo1 }}">
+                      <img class="image is-180x180" src="https://res.cloudinary.com/{{ env('CLOUDINARY_CLOUD_NAME') }}/image/fetch/{{ $hotel->photo1 }}">
                     </a>
                   @endif
                 </div>
