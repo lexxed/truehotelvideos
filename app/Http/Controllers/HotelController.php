@@ -28,7 +28,10 @@ class HotelController extends Controller
                               ->get()
                               ->random(3);          
 
-    	$videos = Video::where('hotel_id', $hotel->id)->get();
+    	$videos = Video::where('hotel_id', $hotel->id)
+                        ->where('submitby', '=', config('constants.vidAllowCode'))  
+                        ->get();
+
 
     	//if($hotel->bookingid != 0) {
 		$bookinghotel = Bookinghotel::where('id', $hotel->bookingid)->First();	

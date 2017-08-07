@@ -102,6 +102,14 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'custom' => [
+            'submitby' => [
+                'required' => 'Please enter your email.',
+            ],
+            'videourl' => [
+                'required' => 'Please enter a video url.',
+            ],       
+    ],
 
     /*
     |--------------------------------------------------------------------------

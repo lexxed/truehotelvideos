@@ -29,7 +29,9 @@
                 <div class="column">
 
                   @php
-                      $video = App\Video::where('hotel_id', $hotel->id)->first();
+                      $video = App\Video::where('hotel_id', $hotel->id)
+                                        ->where('submitby', '=', config('constants.vidAllowCode'))  
+                                        ->first();
                   @endphp 
 
                   @if (!empty($video->tag))

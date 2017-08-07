@@ -35,7 +35,9 @@
                 <div class="column">
 
                   @php
-                      $video = App\Video::where('hotel_id', $hotel->id)->first();
+                      $video = App\Video::where('hotel_id', $hotel->id)
+                                        ->where('submitby', '=', config('constants.vidAllowCode'))  
+                                        ->first();                      
                       $city = App\Cities::where('city', $hotel->city)->first();
                   @endphp 
 

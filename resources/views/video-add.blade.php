@@ -24,23 +24,21 @@
           <div class="content">    
 
 			<h3>Submit a video for {{ $hotel->hotelname }}</h3>
+			<p class="help">* Videos submitted will be shown after approval.</p>			        
 
 			<form method="POST" action="/video-add/{{ $hotel->id }}">
 				{{ csrf_field() }}
 
-			    <div class="form-group">
-			        <label class="label" for="inputError1">Email</label>
-			        <p class="control">
-			        <input name="submitby" size="35" type="submitby" class="form-control" id="inputSubmitby" placeholder="Email" value="">
-			        </p>
-			        <small class="text-danger"></small>
+			    <div class="field">
+			        <label class="label">Email</label>
+				    <input name="submitby" size="25" type="submitby" class="input @if ($errors->has('submitby')) is-danger @endif" id="inputSubmitby" placeholder="Email input" value="{{ old('submitby') }}">
+				    <p class="help is-danger">{{ $errors->first('submitby') }}</p>			        
 			    </div>	
-				
-				<div class="form-group">
-					<label class="label" for="inputError1">Video Url</label>
-					<p class="control">
-					<input name="videourl" size="35" type="videourl" class="form-control" id="inputVideourl" placeholder="https://www.youtube.com/watch?v=4Z3z7DvoA-M" value="{{ old('videourl') }}"  autofocus>
-					</p>
+				<br>
+				<div class="field">
+					<label class="label">Video Url</label>
+					<input name="videourl" size="35" type="videourl" class="input @if ($errors->has('videourl')) is-danger @endif" id="inputVideourl" placeholder="https://www.youtube.com/watch?v=4Z3z7DvoA-M" value="{{ old('videourl') }}">
+					<p class="help is-danger">{{ $errors->first('videourl') }}</p>
 				</div>	
 				 <p class="control">
 				<div class="form-group">

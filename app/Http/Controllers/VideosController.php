@@ -37,6 +37,12 @@ class VideosController extends Controller
 
         //https://youtu.be/ZVxFACw2Sl8
 
+        $rules = [
+            'submitby' => 'required',
+            'videourl' => 'required|URL'
+        ];
+        $this->validate($request, $rules);        
+
         # check if its youtube url
         $haystack = $request->videourl;
         $source = 'ot'; // others

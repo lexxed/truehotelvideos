@@ -84,6 +84,12 @@
     					</div>
     				@endforeach	
 
+            @if($videos->isEmpty())
+            <div class="is-hidden-desktop-only">
+                <img class="is-hidden-desktop-only" src="http://res.cloudinary.com/dncotieoi/image/fetch/{{ $agodahotel->photo1 }}">
+            </div>
+            @endif
+
             <div class="is-pulled-right is-hidden-mobile">
               <a href="{{ url('/video-add/' . $hotel->slug) }}">Submit video</a>
             </div>
@@ -142,10 +148,7 @@
               width="600"
               height="450"
               frameborder="0" style="border:0"
-              src="https://www.google.com/maps/embed/v1/place?key={{ config('constants.googlemapkey') }}
-                &q={{ urlencode($hotel->hotelname) }}
-                &center={{ $agodahotel->latitude }}, {{ $agodahotel->longitude }}
-                " allowfullscreen>
+              src="https://www.google.com/maps/embed/v1/place?key={{ config('constants.googlemapkey') }}&q={{ urlencode($hotel->hotelname) }}&center={{ $agodahotel->latitude }},{{ $agodahotel->longitude }}" allowfullscreen>
             </iframe>
           </div>
         </div>    
