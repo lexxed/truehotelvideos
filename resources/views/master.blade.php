@@ -21,7 +21,6 @@
 <body>
 @include('partials.analytics')
 
-
 <nav class="nav has-shadow" id="top">
   <div class="container">
     <div class="nav-left">
