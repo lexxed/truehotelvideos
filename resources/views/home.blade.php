@@ -28,10 +28,10 @@
   <div class="hero-cta">
     <nav class="level">
       <div class="level-item has-text-centered">
-        <form class="nav-item control has-addons searchbox" id="search" method="POST" action="/search/">
+        <form class="nav-item control has-addons searchbox" id="searchhome" method="POST" action="/search/">
           {{ csrf_field() }}
           <input name="q" class="input" type="text" placeholder="Search hotels videos">
-          <a class="button is-primary" onclick="document.getElementById('search').submit();">
+          <a class="button is-primary" onclick="document.getElementById('searchhome').submit();">
           &nbsp; <i class="fa fa-search"></i> 
           </a>
         </form>      
