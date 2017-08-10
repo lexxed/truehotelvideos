@@ -1,12 +1,12 @@
 @extends('master')
 
 @if (strlen($hotel->hotelname) < 25)
-  @section('title', 'Real videos of '. $hotel->hotelname . " - " . config('constants.brandDomain'))
+  @section('title', $hotel->hotelname . ": Hotel Video Reviews & Travel Guides.")
 @else
-  @section('title', $hotel->hotelname . " - " . config('constants.brandDomain'))
+  @section('title', $hotel->hotelname . ": Real Hotel Video Reviews.")
 @endif  
 
-@section('description', 'See real people\'s Videos of ' . $hotel->hotelname . '. True hotel videos by real people.')
+@section('description', 'See real people\'s Videos of ' . $hotel->hotelname . '. Holiday Videos by real people at the hotel.')
 
 @section('content')
 
