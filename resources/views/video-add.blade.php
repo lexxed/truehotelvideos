@@ -1,7 +1,7 @@
 @extends('master')
 
-@section('title', 'Submit Video')
-@section('description', 'Submit Video')
+@section('title', 'Submit Video for ' . $hotel->hotelname)
+@section('description', 'Submit your holiday videos for ' . $hotel->hotelname . '. More traffic for your videos.')
 
 @section('content')
 
