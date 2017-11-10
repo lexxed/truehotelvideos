@@ -108,7 +108,12 @@ return [
             ],
             'videourl' => [
                 'required' => 'Please enter a video url.',
+                'url' => 'Please enter a valid video url.',
             ],       
+            'instagramurl' => [
+                'required' => 'Please enter a instagram post url.',
+                'url' => 'Please enter a valid instagram post url.',
+            ],              
     ],
 
     /*

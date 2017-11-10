@@ -8,13 +8,14 @@ use App\Agodahotel;
 use App\Bookinghotel;
 use App\Cities;
 use App\Video;
+use App\Instagram;
 
 class HotelController extends Controller
 {
     public function show($cityslug,$slug)
     {
         $hotel = Hotel::where('slug', $slug)->firstOrFail();
-    	$agodahotel = Agodahotel::where('tel_id', $hotel->agodaid)->firstOrFail();
+    	  $agodahotel = Agodahotel::where('tel_id', $hotel->agodaid)->firstOrFail();
    	    //$cities = Cities::where('city', $hotel->city)->firstOrFail();
         $cities = Cities::where('slug', $cityslug)->firstOrFail();
 
@@ -28,15 +29,18 @@ class HotelController extends Controller
                               ->get()
                               ->random(3);          
 
-    	$videos = Video::where('hotel_id', $hotel->id)
+    	  $videos = Video::where('hotel_id', $hotel->id)
                         ->where('submitby', '=', config('constants.vidAllowCode'))  
                         ->get();
 
+        $instagrams = Instagram::where('hotel_id', $hotel->id)
+                        ->where('submitby', '=', config('constants.vidAllowCode'))  
+                        ->get();
 
     	//if($hotel->bookingid != 0) {
 		$bookinghotel = Bookinghotel::where('id', $hotel->bookingid)->First();	
 
-		return view('hotel')->with(['hotel' => $hotel, 'agodahotel' => $agodahotel, 'similar' => $similar, 'videos' => $videos, 'bookinghotel' => $bookinghotel, 'city' => $hotel->city, 'cityslug' => $cities->slug]);    		
+		return view('hotel')->with(['hotel' => $hotel, 'agodahotel' => $agodahotel, 'similar' => $similar, 'videos' => $videos, 'instagrams' => $instagrams,'bookinghotel' => $bookinghotel, 'city' => $hotel->city, 'cityslug' => $cities->slug]);    		
     	//} else {
     	//	return view('hotel')->with(['hotel' => $hotel, 'agodahotel' => $agodahotel, 'similar' => $similar, 'videos' => $videos]);    		
     	//}

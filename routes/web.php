@@ -33,6 +33,9 @@ Route::get('hotels/{country}', 'CitiesController@show');
 Route::get('video-add/{slug}', 'VideosController@show');
 Route::post('video-add/{hotel}', 'VideosController@store');
 
+Route::get('instagram-add/{slug}', 'InstagramController@show'); 
+Route::post('instagram-add/{hotel}', 'InstagramController@store');
+
 Route::get('ag/{slug}', 'AffiliateController@ag');
 Route::get('bk/{slug}', 'AffiliateController@bk');
 

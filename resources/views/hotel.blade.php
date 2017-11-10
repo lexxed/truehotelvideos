@@ -142,6 +142,25 @@
 	        </div>  
         </div>      
 
+
+
+        
+          <div class="box">
+
+            @foreach ($instagrams as $instagram)
+                {!! $instagram->embedcode !!}
+            @endforeach 
+            Share your instagram posts of this hotel!
+
+
+            <div class="is-pulled-right">
+              <a href="{{ url('/instagram-add/' . $hotel->slug) }}">Submit Instagram post</a>
+            </div>
+            <br><br>
+            
+          </div>  
+
+
         <div class="box">
           <div class="video-responsive">  
             <iframe
