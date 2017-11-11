@@ -29,7 +29,7 @@ class HotelsController extends Controller
                         ->where('photo1', '!=', '')
         				->orderBy('vidcount', 'desc')
                         ->orderBy('rating_average', 'desc')
-        				->paginate(10);
+        				->paginate(5);
            				//->get();    
 
         $similar = Hotel::where('city', '=', $city)
