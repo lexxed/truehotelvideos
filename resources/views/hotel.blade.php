@@ -193,7 +193,7 @@
             @endphp            
             <article class="media related-card">
               <div class="media-left">
-                  <a href="{{ url('/' . $similarhotel->slug) }}">
+                  <a href="{{ url('/' . $cityslug . '/' . $similarhotel->slug) }}">
                     <img class="image is-90x90" width="90" src="https://res.cloudinary.com/{{ env('CLOUDINARY_CLOUD_NAME') }}/image/fetch/{{ $similarhotel->photo1 }}">                    
                   </a>  
               </div>
